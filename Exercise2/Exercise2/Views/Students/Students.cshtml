@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Exercise1.Models.Student>
+
+<h1>All Students</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Date of Birth</th>
+            <th>Phone Number</th>
+            <th>Address</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+        <tbody>
+                @foreach (var student in Model)
+                {
+                <tr>
+                    <td>@student.Id</td>
+                    <td>@student.Name</td>
+                    <td>@student.DateOfBirth</td>
+                    <td>@student.PhoneNumber</td>
+                    <td>@student.Address</td>
+                    <td>
+                        <a asp-controller="Students" asp-action="Details" asp-route-id="@student.Id">
+                            Details
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-controller="Students" asp-action="Delete" asp-route-id="@student.Id">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+                }
+        </tbody>
+        }
+</table>
+
+<a asp-controller="Students" asp-action="GoToAdd" class="btn btn-primary">
+    Add Student
+</a>

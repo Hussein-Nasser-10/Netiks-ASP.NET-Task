@@ -1,0 +1,42 @@
+﻿@model Exercise1.Models.StudentsDetailsViewModel
+
+<h1>Student Details</h1>
+<p><strong>ID:</strong> @Model.student.Id</p>
+<p><strong>Name:</strong> @Model.student.Name</p>
+<p><strong>Date of Birth:</strong> @Model.student.DateOfBirth</p>
+@*<input type="date" id="dateOfBirth" name="dateOfBirth" max="@DateTime.Now.ToString("yyyy-MM-dd")" required />*@
+<p><strong>Phone Number:</strong> @Model.student.PhoneNumber</p>
+@*<input type="text" id="phoneNumber" name="phoneNumber" pattern="\d{8}" title="Phone number must be 8 digits" required />*@
+<p><strong>Address:</strong> @Model.student.Address</p>
+
+<h2>Registered Courses</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    @if (Model.Courses != null)
+    {
+        <tbody>
+            @foreach (var course in Model.Courses)
+            {
+                <tr>
+                    <td>@course.Code</td>
+                    <td>@course.Name</td>
+                    <td>
+                        <form asp-action="Unregister" asp-route-id="@Model.student.Id" asp-route-courseCode="@course.Code">
+                            <button type="submit" class="btn btn-danger">Unregister</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    }
+    else
+    {
+        <p>No courses available for this student.</p>
+    }
+</table>

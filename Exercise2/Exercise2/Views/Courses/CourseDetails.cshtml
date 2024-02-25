@@ -1,0 +1,34 @@
+﻿@model Exercise2.Models.CourseDetailsViewModel
+
+
+<h1>Course Details</h1>
+
+<p><strong>Code:</strong> <input type="text" id="code" name="code" value="@Model.Code" readonly /></p>
+<p><strong>Name:</strong> @Model.Name</p>
+<p><strong>Credits:</strong> @Model.Credits</p>
+
+<h2>Registered Students</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var studentCourse in Model.RegisteredStudents)
+        {
+            <tr>
+                <td>@studentCourse.Id</td>
+                <td>@studentCourse.Name</td>
+                <td>
+                    <form asp-action="Unregister" asp-route-id="@studentCourse.Id" asp-route-courseCode="@Model.Code" onsubmit="return confirm('Are you sure you want to unregister this student from the course?');">
+                        <button type="submit" class="btn btn-danger">Unregister</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

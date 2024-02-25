@@ -1,0 +1,53 @@
+﻿@model Exercise1.Models.RegistrationViewModel
+<form asp-controller="Courses" asp-action="Register" method="post">
+    <h2>Registration</h2>
+    <div class="form-group">
+        <label for="courseDropdown">Select Course:</label>
+        <select id="courseDropdown" name="courseId" class="form-control" onchange="filterCourses(this.value)">
+            <option value="" disabled selected hidden>Select Course</option>
+            @foreach (var course in Model.Courses)
+            {
+                <option value="@course.Code">@course.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="studentDropdown">Select Student:</label>
+        <select id="studentDropdown" name="studentId" class="form-control" onchange="filterStudents(this.value)">
+            <option value="" disabled selected hidden>Select Student</option>
+            @foreach (var student in Model.Students)
+            {
+                <option value="@student.Id">@student.Name</option>
+            }
+        </select>
+    </div>
+
+    <br>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+</form>
+
+<script>
+    function filterCourses(searchTerm) {
+        var dropdown = document.getElementById("courseDropdown");
+        for (var i = 0; i < dropdown.options.length; i++) {
+            if (dropdown.options[i].text.toLowerCase().includes(searchTerm.toLowerCase())) {
+                dropdown.options[i].style.display = "";
+            } else {
+                dropdown.options[i].style.display = "none";
+            }
+        }
+    }
+
+    function filterStudents(searchTerm) {
+        var dropdown = document.getElementById("studentDropdown");
+        for (var i = 0; i < dropdown.options.length; i++) {
+            if (dropdown.options[i].text.toLowerCase().includes(searchTerm.toLowerCase())) {
+                dropdown.options[i].style.display = "";
+            } else {
+                dropdown.options[i].style.display = "none";
+            }
+        }
+    }
+</script>
